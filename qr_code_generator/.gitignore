@@ -1,0 +1,6 @@
+qr_codes.pdf
+qr_codes/*
+.ipynb_checkpoints/*
+*.pkl
+*.ttf
+*.pdf

@@ -1,0 +1,90 @@
+version: "3"
+
+services:
+  survey-frontend:
+    build:
+      context: ./survey-app
+      dockerfile: Dockerfile
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.survey-frontend.entrypoints=https"
+      - "traefik.http.routers.survey-frontend.rule=Host(`studie.mydomain.de`)"
+      - "traefik.http.routers.survey-frontend.tls=true"
+      - "traefik.http.routers.survey-frontend.tls.certresolver=lets-encr"
+      - "traefik.http.routers.survey-frontend.middlewares=redirect-www@file"
+    networks:
+      - proxy
+
+  survey-database:
+    image: postgres:10.4
+    volumes:
+            - ./postgresdata:/var/lib/postgresql/data
+            - ./survey-backend/config/01-dbinit.sql:/docker-entrypoint-initdb.d/01-dbinit.sql
+    restart: always
+    environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: password
+        POSTGRES_DB: cut-simulation-survey
+    networks:
+            - survey-api
+
+  survey-external-backend:
+    build:
+      context: ./survey-backend
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - "survey-database"
+    environment:
+        DB_HOST: survey-database
+        DB_NAME: cut-simulation-survey
+        DB_USER: postgres
+        DB_PASS: password
+        DB_PORT: 5432
+        DB_MAX_CONNECTIONS: 10
+        API_VARIANT: external
+        API_CORS_ORIGINS: https://studie.mydomain.de
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.survey-external-backend.rule=Host(`studie-api.mydomain.de`)"
+      - "traefik.http.routers.survey-external-backend.entrypoints=https"
+      - "traefik.http.routers.survey-external-backend.tls=true"
+      - "traefik.http.routers.survey-external-backend.tls.certresolver=lets-encr" 
+    networks:
+       - proxy
+       - survey-api
+
+  survey-internal-backend:
+    build:
+      context: ./survey-backend
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - "survey-database"
+    environment:
+        DB_HOST: survey-database
+        DB_NAME: cut-simulation-survey
+        DB_USER: postgres
+        DB_PASS: password
+        DB_PORT: 5432
+        DB_MAX_CONNECTIONS: 10
+        API_VARIANT: internal
+        API_CORS_ORIGINS: https://studie.mydomain.de
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.survey-internal-backend.entrypoints=https"
+      - "traefik.http.routers.survey-internal-backend.rule=Host(`studie-auswertung.mydomain.de`)"
+      - "traefik.http.routers.survey-internal-backend.tls=true"
+      - "traefik.http.routers.survey-internal-backend.tls.certresolver=lets-encr"
+      - "traefik.http.middlewares.survey-authenticator.basicauth.users=survey:passwordhash"
+      - "traefik.http.routers.survey-internal-backend.middlewares=survey-authenticator@docker"
+    networks:
+      - proxy
+      - survey-api
+
+networks:
+  proxy:
+    external: true
+  survey-api:
+    external: true

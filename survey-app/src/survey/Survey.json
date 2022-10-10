@@ -1,0 +1,285 @@
+{
+  "locale": "de",
+  "title": "Umfrage",
+  "description": {
+   "de": "Modelle und Simulationen in digitalen Stadtzwillingen"
+  },
+  "logoPosition": "right",
+  "pages": [
+   {
+    "name": "Intro",
+    "elements": [
+     {
+      "type": "html",
+      "name": "question4",
+      "html": {
+       "de": "<h2>Aufbau</h2>\nDie Umfrage besteht aus drei Teilen und sollte circa 10 Minuten in Anspruch nehmen.\n<ol>\n<li>Persönliche Informationen</li>\n<li>Status Quo: Digitale Modelle und Simulationen</li>\n<li>Abschluss</li>\n</ol>\nErforderliche Felder sind mit einem <b>*</b> gekennzeichnet."
+      }
+     },
+     {
+      "type": "html",
+      "name": "Kontaktdaten",
+      "html": {
+       "de": "<h2>Kontaktdaten</h2>\n<p>Sollten Sie Fragen zur Studie oder dem Projekt haben, wenden Sie sich gerne an:\n</p>\nRico Herzog<br>\nCity Science Lab, HafenCity Universität Hamburg <br>\nHenning-Voscherau-Platz 1<br>\n20457 Hamburg<bR>\n <a href=\"mailto:rico.herzog@hcu-hamburg.de?subject=Feedback%20Studie\">rico.herzog@hcu-hamburg.de</a><br>\n+49 40 42827-5250\n\n<p> Vor Beginn der Studie bitten wir Sie, den <a href=\"datenschutz/Datenschutzerklärung_CUT Studie.pdf\" target=\"_blank\">Datenschutzbestimmungen</a> und der Speicherung der Daten zuzustimmen. Alle Daten werden ausschließlich auf Servern der HafenCity Universität gespeichert."
+      }
+     },
+     {
+      "type": "checkbox",
+      "name": "Datenschutz",
+      "title": {
+       "de": "Ich stimme den Datenschutzbestimmungen und der Speicherung der Daten auf den Servern der HafenCity Universität zu"
+      },
+      "isRequired": true,
+      "choices": [
+       {
+        "value": "ja",
+        "text": {
+         "de": "Ich stimme zu"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Persönliche Informationen",
+    "elements": [
+     {
+      "type": "text",
+      "name": "Berufsabschluss",
+      "title": {
+       "de": "Was ist Ihr beruflicher Hintergrund (Ausbildung/ Bildungsabschluss)?"
+      },
+      "isRequired": true
+     },
+     {
+      "type": "text",
+      "name": "Dienststelle",
+      "title": {
+       "de": "Was ist aktuell Ihre Dienststelle/Ihr Arbeitgeber?"
+      },
+      "isRequired": true
+     },
+     {
+      "type": "text",
+      "name": "Dienstbezeichnung",
+      "title": {
+       "de": "Wie lautet ihre aktuelle Dienstbezeichnung?"
+      },
+      "isRequired": true
+     },
+     {
+      "type": "comment",
+      "name": "Diensttätigkeit",
+      "title": {
+       "de": "Was sind Ihre aktuellen hauptsächlichen Diensttätigkeiten?"
+      },
+      "isRequired": true
+     },
+     {
+      "type": "text",
+      "name": "Berufserfahrung",
+      "title": {
+       "de": "Was ist ihre einschlägige Berufserfahrung in Jahren?"
+      },
+      "isRequired": true,
+      "inputType": "number",
+      "min": 0,
+      "max": 70
+     },
+     {
+      "type": "checkbox",
+      "name": "System",
+      "title": {
+       "de": "In der Literatur wird die Stadt als komplexes System beschrieben, das in soziale, ökologische und technische Teilsysteme unterteilt werden kann. Diese Teilsysteme interagieren über zahlreiche Schnittstellen miteinander. Mit welchem der folgenden Teilsysteme beschäftigen Sie sich in ihrem Dienst? (Mehrfachnennung möglich)"
+      },
+      "description": {
+       "de": "Beispiele für solche Teilsysteme sind das Wassermanagement der Stadtwerke (soziales Teilsystem), die Wasserreservoire der Stadt (ökologisches Teilsystem) und die Leitungen und Kanalisation (technisches Teilsystem). "
+      },
+      "isRequired": true,
+      "choices": [
+       {
+        "value": "sozial",
+        "text": {
+         "de": "Soziale Systeme"
+        }
+       },
+       {
+        "value": "technisch",
+        "text": {
+         "de": "Technische Systeme"
+        }
+       },
+       {
+        "value": "ökologisch",
+        "text": {
+         "de": "Ökologische Systeme"
+        }
+       }
+      ],
+      "hasOther": true,
+      "otherText": {
+       "de": "Andere: Bitte angeben"
+      }
+     },
+     {
+      "type": "comment",
+      "name": "Raumrelevanz",
+      "title": {
+       "de": "Inwiefern hat Ihre Diensttätigkeit Auswirkungen auf den (sozialen, technischen oder ökologischen) Stadtraum?"
+      },
+      "isRequired": true
+     }
+    ],
+    "title": {
+     "de": "Persönliche Informationen"
+    }
+   },
+   {
+    "name": "page1",
+    "elements": [
+     {
+      "type": "html",
+      "name": "question5",
+      "html": {
+       "de": "<h2>Was verstehen wir unter digitalen Modellen und Simulationen?</h2>\n<p>Wir verstehen unter <i>digitalen Modellen</i>  Abbildungen der Realität mit Hilfe des Computers. Dabei kann bspw. ein konkretes physisches Objekt abgebildet werden oder ein Prozess. Unter einer <i>Simulation</i> verstehen wir ein Modell, das eine dynamische Veränderung über einen Zeitablauf abbilden kann. </p>\n<p><b>Beispiele: </b>3D-Stadtmodelle, Luftqualitätsmodelle, KI-Modelle, Verkehrssimulationen, statistische Modelle, Prognosemodelle, Lärmmodelle</p>"
+      }
+     },
+     {
+      "type": "matrixdynamic",
+      "name": "Modelliste",
+      "title": {
+       "de": "Welche digitalen Modelle und Simulationen verwenden Sie im Rahmen Ihrer Tätigkeit? "
+      },
+      "description": {
+       "de": "Bitte beschreiben Sie jeweils das digitale Modell/Simulation (Beschreibung) und erläutern, wozu (Zweck) und wie (Art der Nutzung) Sie das Modell/Simulation verwenden. Falls Sie mehrere Modelle/Simulationen verwenden, fügen Sie bitte mit einem Klick auf \"Zeile hinzufügen\" entsprechend mehrere Zeilen hinzu. \nBeispiel: "
+      },
+      "columns": [
+       {
+        "name": "Name",
+        "cellType": "text"
+       },
+       {
+        "name": "Beschreibung",
+        "cellType": "comment",
+        "placeholder": {
+         "de": "Bitte beschreiben Sie das digitale Modell/Simulation"
+        }
+       },
+       {
+        "name": "Zweck",
+        "title": {
+         "de": "Zweck (Wozu?)"
+        },
+        "cellType": "comment",
+        "colCount": 0,
+        "placeholder": {
+         "de": "Wofür benutzen Sie das Modell/Simulation?"
+        }
+       },
+       {
+        "name": "Verwendung",
+        "title": {
+         "de": "Art der Nutzung (Wie?)"
+        },
+        "cellType": "comment",
+        "placeholder": {
+         "de": "Wie nutzen Sie das Modell/Simulation? (Eigene Nutzung, Beauftragung anderer Dienststellen/private Dienstleister?)"
+        }
+       }
+      ],
+      "choices": [
+       1,
+       2,
+       3,
+       4,
+       5
+      ],
+      "rowCount": 1,
+      "maxRowCount": 100,
+      "confirmDelete": true,
+      "addRowLocation": "bottom",
+      "addRowText": {
+       "de": "Zeile hinzufügen"
+      }
+     }
+    ],
+    "title": {
+     "de": "Status Quo: Digitale Modelle und Simulationen"
+    }
+   },
+   {
+    "name": "page2",
+    "elements": [
+     {
+      "type": "radiogroup",
+      "name": "Kontaktaufnahme",
+      "title": {
+       "de": "Ich erkläre mich damit einverstanden, im Nachgang der Studie bspw. für die Zusendung der Studienergebnisse kontaktiert zu werden"
+      },
+      "isRequired": true,
+      "choices": [
+       "Ja",
+       "Nein"
+      ],
+      "noneText": {
+       "de": "Bitte keine Kontaktaufnahme"
+      }
+     },
+     {
+      "type": "multipletext",
+      "name": "question1",
+      "visible": false,
+      "visibleIf": "{Kontaktaufnahme} = 'Ja'",
+      "title": {
+       "de": "Bitte tragen Sie Ihre Kontaktdaten ein"
+      },
+      "requiredIf": "{Kontaktaufnahme} = 'Ja'",
+      "items": [
+       {
+        "name": "Name",
+        "title": {
+         "de": "Vorname und Name"
+        }
+       },
+       {
+        "name": "Mail",
+        "title": {
+         "de": "Mailadresse"
+        }
+       },
+       {
+        "name": "Telefon",
+        "title": {
+         "de": "Telefonnummer"
+        }
+       }
+      ]
+     }
+    ],
+    "title": {
+     "de": "Abschluss"
+    },
+    "description": {
+     "de": "Herzlichen Dank für das Ausfüllen des inhaltlichen Teils der Umfrage! Bitte geben Sie an, ob Sie damit einverstanden sind, im Nachgang kontaktiert zu werden, füllen Sie ggf. Ihre Kontaktdaten aus und klicken Sie auf \"Abschicken\" "
+    }
+   }
+  ],
+  "showProgressBar": "bottom",
+  "startSurveyText": {
+   "de": "Umfrage starten"
+  },
+  "pagePrevText": {
+   "de": "Zurück"
+  },
+  "pageNextText": {
+   "de": "Weiter"
+  },
+  "completeText": {
+   "de": "Abschicken und zum Digitalen Zwilling"
+  },
+  "editText": {
+   "de": "Bearbeiten"
+  },
+  "firstPageIsStarted": true
+ }
