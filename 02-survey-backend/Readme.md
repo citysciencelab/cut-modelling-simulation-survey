@@ -1,5 +1,6 @@
 # Survey backend
-The backend consists of a postgres database and of an express API. 
+
+The backend consists of a postgres database and of an express API. Via the `docker-compose.yml`, two types of the API are created; one accessible for everyone and one only exposed for those who have access via Basic Auth. This "internal" version of the API can be emulated in development by setting `DEV = true` in the [routes.js file](routes/routes.js). 
 
 ## Database setup
 
@@ -24,4 +25,4 @@ CREATE DATABASE "cut-simulation-survey";
 ```psql -U me -d cut-simulation-survey -a -f ./config/01-dbinit.sql```
 
 ## Express API
-With `npm i`, install the dependencies and with `npm start`, start the local development server. The different endpoints of the API are listed in [routes.js](/routes/routes.js). 
+With `npm i`, install the dependencies and with `npm start`, start the local development server. The different endpoints of the API are listed in [routes.js](routes/routes.js). 
