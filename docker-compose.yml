@@ -3,7 +3,7 @@ version: "3"
 services:
   survey-frontend:
     build:
-      context: ./survey-app
+      context: ./01-survey-app
       dockerfile: Dockerfile
     restart: always
     labels:
@@ -31,7 +31,7 @@ services:
 
   survey-external-backend:
     build:
-      context: ./survey-backend
+      context: ./02-survey-backend
       dockerfile: Dockerfile
     restart: always
     depends_on:
@@ -57,7 +57,7 @@ services:
 
   survey-internal-backend:
     build:
-      context: ./survey-backend
+      context: ./02-survey-backend
       dockerfile: Dockerfile
     restart: always
     depends_on:
