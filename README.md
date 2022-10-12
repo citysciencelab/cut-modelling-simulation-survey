@@ -4,7 +4,7 @@ This repository contains the source code for the modelling and simulation study 
 1. [Survey Backend](/02-survey-backend/Readme.md): A backend based on Postgres and an express server for various APIs
 1. [QR-Code Generator](/03-qr-code-generator/qr_code_generator.ipynb): A python script to generate QR codes to send individual links to survey recipients
 
-https://user-images.githubusercontent.com/61881523/194824080-7bc2de52-9801-46f7-9717-93ffe8ef71f7.mov
+https://user-images.githubusercontent.com/61881523/194837940-f48d93d4-adac-4ea4-afde-1d29cf2bb0e1.mp4
 
 ## Background
 Urban digital twins use urban data, digitally map our cities and enable what-if scenarios. In this context, this study by the City Science Lab addresses the question of which models and simulations are already finding their way into urban decision-making processes and which will be desired by different urban stakeholders in the future.
