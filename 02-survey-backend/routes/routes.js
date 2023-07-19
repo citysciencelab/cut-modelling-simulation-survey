@@ -7,7 +7,7 @@ const router = express.Router()
 
 module.exports = router;
 
-const DEV = false
+const DEV = true
 
 
 if (process.env.API_VARIANT == "internal" || DEV) {
