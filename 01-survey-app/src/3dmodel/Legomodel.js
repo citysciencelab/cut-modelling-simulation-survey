@@ -6,7 +6,7 @@ import React, { useRef, useState } from 'react'
 import { useGLTF, Bounds, useBounds } from '@react-three/drei'
 import * as THREE from "three"
 import { BoxGeometry } from 'three';
-
+import { RoundedBox } from "@react-three/drei"
 
 
 export default function LegoModel({ ...props }) {
@@ -15,7 +15,7 @@ export default function LegoModel({ ...props }) {
   const group = useRef()
 
   const { FachData, ZwillingData, AnwendungData, AnalyseData, GeobasisData } = require("./BuildingData")
-
+  const { streetData, greenAreaData, institutionData, residentialData, officeData, waterData, bridgeData } = require("./BuildingData")
   const [hoveredGround, hoverGround] = useState(false)
   const [hoveredFirst, hoverFirst] = useState(false)
   const [hoveredSecond, hoverSecond] = useState(false)
@@ -36,28 +36,541 @@ export default function LegoModel({ ...props }) {
   const color_fourth= new THREE.MeshPhysicalMaterial({ color: "#9c3131" })
   const color_fourth_hov = new THREE.MeshPhysicalMaterial({ color: "#db5c5c" })
 
+function getColor(aqi) {
 
+  var r, g, b = 0;
+  aqi = aqi * 100
+  if (aqi < 50) {
+      r = 255;
+      g = Math.round(5.1 * aqi);
+  }
+  else {
+      g = 255;
+      r = Math.round(510 - 5.10 * aqi);
+  }
+  var h = r * 0x10000 + g * 0x100 + b * 0x1;
+  return '#' + ('000000' + h.toString(16)).slice(-6);
+}
+  const opacity = 0.5
+  const tools = [{
+    tool_name: 'Urban Data Narrator',
+    tool_category: 'Web Tool',
+    link: '',
+    description: '',
+    development_date: '',
+    status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  },
+  {tool_name: 'Stadträumliche Barrierien',
+  tool_category: 'Data',
+  link: '',
+  description: '',
+  development_date: '',
+  status: '',
+  }];
+  function add_cube_to_capacity(level_capacity, row_capacity, level, row, sidelength) {
+    level_capacity = level_capacity + 1;
+    row_capacity = row_capacity + 1;
+      if (level_capacity > (sidelength ** 2)-1) {
+        // Increase the level when capacity exceeds sidelength
+        level_capacity = 0;
+        level = level + 1;
+        row_capacity = 0
+        row = 0
+      }
+      if (row_capacity > sidelength-1) {
+        // Increase the row when capacity exceeds sidelength
+        row_capacity = 0;
+        row = row + 1;
+      }
+      return [level_capacity, row_capacity, level, row];
+  }
+
+  // IMPORTANT following function is just capable for up to 52 json entries
+  function generate_matrix( block_json) {
+    const length = block_json.length;
+    let sidelength = 0
+    if (length == 1) {
+      sidelength = 1
+    }
+    else if (1 < length && length < 9) {
+      sidelength = 2
+    }
+    else if (8 < length && length < 26) {
+      sidelength = 3
+    }
+    else if (25 < length && length < 53) {
+      sidelength = 4
+    }
+    const build_matrix = []
+    let blacklist = []
+    if (13 < length && length < 22) {
+      blacklist = [4]
+    }
+    else if (21 < length && length < 26) {
+      blacklist = [4, 13]
+    }
+    else if (25 < length && length < 34) {
+      blacklist = [5,6, 9, 10]
+    }
+    else if (33 < length && length < 36) {
+      blacklist = [5,6, 9, 10, 21, 22]
+    }
+    else if (35 < length && length < 46) {
+      blacklist = [5,6, 9, 10, 21, 22, 25, 26]
+    }
+    else if (45 < length && length < 48) {
+      blacklist = [5,6, 9, 10, 21, 22, 25, 26, 37, 38]
+    }
+    else if (47 < length && length < 53) {
+      blacklist = [5,6, 9, 10, 21, 22, 25, 26, 37, 38, 41, 42]
+    }
+    //else if (22 < length < 27) {
+    //  blacklist = [4, 13]
+    //}
+
+    let level_capacity = 0;
+    let row_capacity = 0;
+    let level = 0;
+    let row = 0;
+    const run_length = length + blacklist.length
+    console.log(run_length)
+    for (let i = 0; i < run_length; i++) {
+      if (!build_matrix[level]) {
+        // Create a new sub-array for the current level if it doesn't exist
+        build_matrix[level] = [];
+      }
+  
+      if (!build_matrix[level][row]) {
+        // Create a new sub-array for the current row if it doesn't exist
+        build_matrix[level][row] = [];
+      }
+      console.log(sidelength, i)
+      if (blacklist.includes(i) == true) {
+        build_matrix[level][row].push(150);
+        [level_capacity, row_capacity, level, row] = add_cube_to_capacity(level_capacity, row_capacity, level, row, sidelength)
+        if (!build_matrix[level]) {
+          // Create a new sub-array for the current level if it doesn't exist
+          build_matrix[level] = [];
+        }
+        if (!build_matrix[level][row]) {
+          // Create a new sub-array for the current row if it doesn't exist
+          build_matrix[level][row] = [];
+        }
+      }
+      else {
+        build_matrix[level][row].push(1);
+      [level_capacity, row_capacity, level, row] = add_cube_to_capacity(level_capacity, row_capacity, level, row, sidelength)
+      }
+      
+      
+      
+      // Push the value into the current level and row of the build_matrix
+      
+    }
+  
+    return build_matrix;
+  }
+  
+  const matrix = generate_matrix(tools.slice(0,48))
+  console.log(matrix)
 
   //Dialogue management
   function handleClickOpen(data) {
-    props.onHandleDialog(true, data);
+    console.log(data)
   };
 
-  function shadowActive() {
-    if (props.activeSimulation === "shadow") {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  function windDirection() {
-    let direction = (-props.windDirection / 360 * 6.3 - Math.PI / 4)
-    return direction
-  }
-
-  const flag_x = 0
-  const flag_y = 0
 
   function SelectToZoom({ children }) {
     const api = useBounds()
@@ -69,15 +582,23 @@ export default function LegoModel({ ...props }) {
   }
 
   return (
-    <group ref={group} {...props} dispose={null} >
-      <group position={[0, 50, 0]} rotation={[0, 5, 0]}>
-      <mesh geometry={nodes.ground_floor.geometry} material={hoveredGround ? color_ground_hov : color_ground} position={[0, 50, 0]} rotation={[0, 0, 0]} scale={[10,10,10]} onPointerOver={(event) => props.activeSimulation == null  && props.view.name !== "pedestrian"&& hoverGround(true)} onPointerOut={(event) => hoverGround(false)} onClick={(event) => handleClickOpen(GeobasisData)}/>
-      <mesh geometry={nodes.first_floor.geometry} material={hoveredFirst ? color_first_hov : color_first} position={[0, 80, 30]} rotation={[0, 0, 0]} scale={[10 ,5,20]}  onPointerOver={(event) => props.activeSimulation == null  && props.view.name !== "pedestrian"&& hoverFirst(true)} onPointerOut={(event) => hoverFirst(false)} onClick={(event) => handleClickOpen(FachData)}/>
-      <mesh geometry={nodes.second_floor.geometry} material={hoveredSecond ? color_second_hov : color_second} position={[0, 90, 40]} rotation={[0, 0, 0]} scale={[10 ,5,10]}  onPointerOver={(event) => props.activeSimulation == null  && props.view.name !== "pedestrian"&& hoverSecond(true)} onPointerOut={(event) => hoverSecond(false)} onClick={(event) => handleClickOpen(AnalyseData)}/>
-      <mesh geometry={nodes.third_floor.geometry} material={hoveredThird ? color_third_hov : color_third} position={[43, 100, 40]} rotation={[0, 0, 0]} scale={[10 ,5,10]}  onPointerOver={(event) => props.activeSimulation == null  && props.view.name !== "pedestrian"&& hoverThird(true)} onPointerOut={(event) => hoverThird(false)} onClick={(event) => handleClickOpen(AnwendungData)}/>
-      <mesh geometry={nodes.fourth_floor.geometry} material={hoveredFourth ? color_fourth_hov : color_fourth} position={[0, 125, 40]} rotation={[0, 0, 0]} scale={[10 ,10,10]}  onPointerOver={(event) => props.activeSimulation == null  && props.view.name !== "pedestrian"&& hoverFourth(true)} onPointerOut={(event) => hoverFourth(false)} onClick={(event) => handleClickOpen(ZwillingData)}/>
-      </group>
-    </group>
+    matrix.map((x, i) => {
+      return (
+          x.map((y, j) => {
+              return (
+                  y.map((z, k) => {
+                      return (
+                          <mesh onClick={(event) => handleClickOpen(y)}>
+                            <RoundedBox key={i + "," + j + "," + k} radius={0.05} smoothness={4} scale={25} position={[-65 + 25.5 * j, -70 + 25.5 * i, -65 + 25.5 * k]}>
+                                <meshPhongMaterial color={getColor(z)} transparent opacity={100}  />
+                            </RoundedBox>
+                          </mesh>
+                      )
+                  }))
+          }))
+// TODO statt 1 JSON übergeben, dann z = JSON, Farbe abhängig von Kategorie, JSON an click Funktion übergeben
+
+  })
 
   )
 }

@@ -241,7 +241,7 @@ export default function Airquality(props) {
         }
     })
 
-
+    console.log(airQualitySimulation)
     return (
         airQualitySimulation.map((x, i) => {
             return (

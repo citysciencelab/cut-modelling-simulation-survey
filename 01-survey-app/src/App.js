@@ -83,12 +83,12 @@ function App() {
   const [tutorialActive, setTutorialActive] = useState(true)
 
   const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(true);
 
   // Load data from the backend
   useEffect(() => {
 
-    loadRecipient("")
+    //loadRecipient("")
 
 
   }, []);
@@ -173,8 +173,6 @@ function App() {
   return (
     <div className="App">
 
-      {<AccessBackdrop open={!isLoaded} onLoadRecipient={loadRecipient} />}
-
       <AppContext.Provider value={[comments, loadComments, recipient, setSendAnonymous, loadRecipient]}>
         <ThemeProvider theme={theme}>
           <Routes>
@@ -184,9 +182,7 @@ function App() {
                 <Route path="survey" element={<SurveyView recipient={recipient} />} />
                 <Route path="twin" element={
                   <>
-                  
                   <Twin recipient={recipient} comments={comments} onHandleTutorialActive={handleTutorialActive}/>
-                  <TwinTutorial tutorialActive={tutorialActive} onHandleTutorialActive={handleTutorialActive} />
                   </>
                 } />
               </>
