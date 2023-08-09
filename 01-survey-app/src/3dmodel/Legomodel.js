@@ -36,427 +36,183 @@ export default function LegoModel({ ...props }) {
   const color_fourth= new THREE.MeshPhysicalMaterial({ color: "#9c3131" })
   const color_fourth_hov = new THREE.MeshPhysicalMaterial({ color: "#db5c5c" })
 
-function getColor(aqi) {
+function getColor(aqi, hover ) {
+  //console.log(hover)
+    let color = ''
+  const web_color = '#c2653a'
+  const web_color_hov = '#FF8953'
+  const data_color = '#3aa1c2'
+  const data_color_hov = '#4EC7EE'
+  if (aqi == 150) {
+    color =  '#bbbbbb'
+  }
+  else if (aqi === undefined) {
 
-  var r, g, b = 0;
-  aqi = aqi * 100
-  if (aqi < 50) {
-      r = 255;
-      g = Math.round(5.1 * aqi);
   }
   else {
-      g = 255;
-      r = Math.round(510 - 5.10 * aqi);
+    if (aqi['tool_category'] == 'Web Tool') {
+      if (hover == true) {
+        color = web_color_hov
+      }
+      else if (hover == false) {
+        color = web_color
+      }
+      
+    }
+    else if (aqi['tool_category'] == 'Data') {
+      if (hover == true) {
+        color = data_color_hov
+      }
+      else if (hover == false) {
+        color = data_color
+      }
+    }    
   }
-  var h = r * 0x10000 + g * 0x100 + b * 0x1;
-  return '#' + ('000000' + h.toString(16)).slice(-6);
+  
+  return color;
 }
   const opacity = 0.5
   const tools = [{
     tool_name: 'Urban Data Narrator',
     tool_category: 'Web Tool',
-    link: '',
-    description: '',
+    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
+    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
     development_date: '',
+    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
+    status: '',
+  },
+  {
+    tool_name: 'Urban Data Narrator',
+    tool_category: 'Web Tool',
+    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
+    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
+    development_date: '',
+    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
+    status: '',
+  },
+  {
+    tool_name: 'Urban Data Narrator',
+    tool_category: 'Web Tool',
+    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
+    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
+    development_date: '',
+    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
+    status: '',
+  },
+  {
+    tool_name: 'Urban Data Narrator',
+    tool_category: 'Web Tool',
+    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
+    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
+    development_date: '',
+    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
+    status: '',
+  },
+  {
+    tool_name: 'Urban Data Narrator',
+    tool_category: 'Web Tool',
+    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
+    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
+    development_date: '',
+    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
+    status: '',
+  },
+  {
+    tool_name: 'Urban Data Narrator',
+    tool_category: 'Web Tool',
+    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
+    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
+    development_date: '',
+    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
+    status: '',
+  },
+  {
+    tool_name: 'Urban Data Narrator',
+    tool_category: 'Web Tool',
+    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
+    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
+    development_date: '',
+    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
+    status: '',
+  },
+  {
+    tool_name: 'Urban Data Narrator',
+    tool_category: 'Web Tool',
+    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
+    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
+    development_date: '',
+    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
+    status: '',
+  },
+  {
+    tool_name: 'Urban Data Narrator',
+    tool_category: 'Web Tool',
+    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
+    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
+    development_date: '',
+    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
+    status: '',
+  },
+  {
+    tool_name: 'Urban Data Narrator',
+    tool_category: 'Web Tool',
+    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
+    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
+    development_date: '',
+    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
+    status: '',
+  },
+  {
+    tool_name: 'Urban Data Narrator',
+    tool_category: 'Web Tool',
+    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
+    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
+    development_date: '',
+    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
+    status: '',
+  },
+  {
+    tool_name: 'Urban Data Narrator',
+    tool_category: 'Web Tool',
+    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
+    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
+    development_date: '',
+    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
+    status: '',
+  },
+  {
+    tool_name: 'Urban Data Narrator',
+    tool_category: 'Web Tool',
+    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
+    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
+    development_date: '',
+    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
+    status: '',
+  },
+  {
+    tool_name: 'Urban Data Narrator',
+    tool_category: 'Web Tool',
+    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
+    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
+    development_date: '',
+    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
+    status: '',
+  },
+  {
+    tool_name: 'Urban Data Narrator',
+    tool_category: 'Web Tool',
+    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
+    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
+    development_date: '',
+    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
     status: '',
   },
   {tool_name: 'Stadträumliche Barrierien',
   tool_category: 'Data',
   link: '',
-  description: '',
+  description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
   development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
-  status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: '',
-  development_date: '',
+  picture_url: 'https://www.owl-luftaufnahmen.de/wp-content/uploads/2015/06/Unterseiten-Bilder-Beispielbild.jpg',
   status: '',
   }];
   function add_cube_to_capacity(level_capacity, row_capacity, level, row, sidelength) {
@@ -525,7 +281,7 @@ function getColor(aqi) {
     let level = 0;
     let row = 0;
     const run_length = length + blacklist.length
-    console.log(run_length)
+    let json_item = 0
     for (let i = 0; i < run_length; i++) {
       if (!build_matrix[level]) {
         // Create a new sub-array for the current level if it doesn't exist
@@ -536,7 +292,7 @@ function getColor(aqi) {
         // Create a new sub-array for the current row if it doesn't exist
         build_matrix[level][row] = [];
       }
-      console.log(sidelength, i)
+      //console.log(sidelength, i)
       if (blacklist.includes(i) == true) {
         build_matrix[level][row].push(150);
         [level_capacity, row_capacity, level, row] = add_cube_to_capacity(level_capacity, row_capacity, level, row, sidelength)
@@ -550,7 +306,9 @@ function getColor(aqi) {
         }
       }
       else {
-        build_matrix[level][row].push(1);
+        
+        build_matrix[level][row].push(block_json[json_item]);
+        json_item = json_item+1;
       [level_capacity, row_capacity, level, row] = add_cube_to_capacity(level_capacity, row_capacity, level, row, sidelength)
       }
       
@@ -560,43 +318,59 @@ function getColor(aqi) {
       
     }
   
-    return build_matrix;
+    return [build_matrix, sidelength];
   }
-  
-  const matrix = generate_matrix(tools.slice(0,48))
-  console.log(matrix)
+  const data = generate_matrix(tools)
+  const matrix = data[0]
+  const sidelength = data[1]
+
 
   //Dialogue management
-  function handleClickOpen(data) {
-    console.log(data)
+  function handleClickOpen(data, event) {
+    event.stopPropagation()
+    props.onHandleDialog(true, data);
+
   };
 
 
-  function SelectToZoom({ children }) {
-    const api = useBounds()
-    return (
-      <group onClick={(e) => (e.stopPropagation(), e.delta <= 2 && api.refresh(e.object).fit())} onPointerMissed={(e) => e.button === 0 && api.refresh().fit()}>
-        {children}
-      </group>
-    )
-  }
+  const [hoveredBoxes, setHoveredBoxes] = useState(Array(17).fill(false));
 
+  const [hovered, hover] = useState(false);
   return (
     matrix.map((x, i) => {
       return (
           x.map((y, j) => {
               return (
                   y.map((z, k) => {
+                      let obj_no = k+j*sidelength+i*sidelength*sidelength
                       return (
-                          <mesh onClick={(event) => handleClickOpen(y)}>
+
+                          <mesh 
+                          onPointerOver={(event) => {
+                            event.stopPropagation()
+                            const newHoveredBoxes = [];
+                            newHoveredBoxes[obj_no] = true;
+                            setHoveredBoxes(newHoveredBoxes);
+                            console.log(hoveredBoxes)
+                          }}
+                          onPointerOut={(event) => {
+                            const newHoveredBoxes = [...hoveredBoxes];
+                            newHoveredBoxes[obj_no] = false;
+                            setHoveredBoxes(newHoveredBoxes);
+                            //event.stopPropagation()
+                          }}  
+                          onClick={(event) => {
+                            handleClickOpen(z, event)}}
+                          >
+                          
                             <RoundedBox key={i + "," + j + "," + k} radius={0.05} smoothness={4} scale={25} position={[-65 + 25.5 * j, -70 + 25.5 * i, -65 + 25.5 * k]}>
-                                <meshPhongMaterial color={getColor(z)} transparent opacity={100}  />
+                                <meshPhongMaterial color={getColor(z, hoveredBoxes[obj_no] ? true : false)} transparent opacity={100}  />
                             </RoundedBox>
                           </mesh>
                       )
                   }))
           }))
-// TODO statt 1 JSON übergeben, dann z = JSON, Farbe abhängig von Kategorie, JSON an click Funktion übergeben
+// TODO  hover anzeige welches ist ausgewählt
 
   })
 

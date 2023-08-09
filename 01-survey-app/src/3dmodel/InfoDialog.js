@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import SensorsIcon from '@mui/icons-material/Sensors';
+import LinkIcon from '@mui/icons-material/Link';
 import CommentIcon from '@mui/icons-material/Comment';
 import InfoIcon from '@mui/icons-material/Info';
 import CloseIcon from '@mui/icons-material/Close';
@@ -56,7 +57,12 @@ export default function InfoDialog(props) {
   function valuetext(value) {
     return `${value} `;
   }
-
+ 
+  function handleIconButtonClick () {
+      if (props.dialogContent['link']) {
+        window.open(props.dialogContent['link'], '_blank');
+      }
+    };
   const handleIconTab = (event, newValue) => {
     setIconTab(newValue);
   };
@@ -70,133 +76,49 @@ export default function InfoDialog(props) {
 
   return (
     <div>
-      <Drawer anchor={"bottom"} open={props.open} onClose={handleClose}>
-        <Grid container spacing={2} justifyContent="space-between">
-          <Grid item  m={3} mb={1}>
-            <Typography variant="h3">
-              {props.dialogContent.title}
-            </Typography>
+      <Drawer anchor="bottom" open={props.open} onClose={handleClose}>
+      <div style={{ padding: "16px" }}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={9}>
+          <Typography variant="h6" align="left"> 
+                {props.dialogContent["tool_name"]}
+              </Typography>
           </Grid>
-          <Grid item  m={1}>
+          <Grid item xs={3}>
+            <IconButton size="large" onClick={handleIconButtonClick} align="right">
+              <LinkIcon />
+            </IconButton>
             <IconButton size="large" onClick={handleClose} align="right">
               <CloseIcon />
             </IconButton>
           </Grid>
         </Grid>
+
         <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            {/* Left side content */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
 
-          <Grid item xs={12} ml={3} mr={3} sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={iconTab} onChange={handleIconTab} aria-label="icon label tabs example">
-              <Tab icon={<InfoIcon />} label="Beschreibung" key="Beschreibung" />
-              <Tab icon={<SensorsIcon />} label="Sensoren" key="sensor" disabled={props.dialogContent["sensorData"] == undefined} />
-              <Tab icon={<CommentIcon />} label="Partizipation" key="comment" disabled={props.dialogContent["citizenComments"] == undefined} />
-              <Tab icon={<AnalyticsIcon />} label="Daten" key="data" disabled={props.dialogContent["data"] == undefined} />
-            </Tabs>
-          </Grid>
-
-          <Grid item xs={12} ml={1} mr={1}>
-            <TabPanel value={iconTab} index={0}>
-              <Typography gutterBottom>
-                {props.dialogContent.text}
+              {/* Description */}
+              <Typography variant="body1">
+                {props.dialogContent["description"]}
               </Typography>
-            </TabPanel>
-            {props.dialogContent["sensorData"] !== undefined &&
-              <TabPanel value={iconTab} index={1}>
-                <Grid container spacing={2} alignItems="center">
-                  {
-                    Object.entries(props.dialogContent.sensorData).map(([key, sensor]) => (
-
-
-                      <Grid item xs>
-                        <Paper>
-                          <Chart data={(sensor.data).slice(time + 1, -1).concat((sensor.data).slice(0, time + 1))} height={250}>
-                            <ValueAxis />
-                            <ArgumentAxis title="Axis Title">
-                            </ArgumentAxis>
-                            <LineSeries name="name" valueField="value" argumentField="argument" />
-                            <Title text={sensor.titel}>
-                            </Title>
-                          </Chart>
-                        </Paper>
-                      </Grid>
-
-                    ))
-                  }
-                </Grid>
-
-              </TabPanel>
-            }
-
-            {props.dialogContent["citizenComments"] !== undefined &&
-              <TabPanel value={iconTab} index={2}>
-                {
-                  Object.entries(props.dialogContent.citizenComments).map(([key, comment]) => (
-
-                    <Grid container mb={2}>
-                      <Grid item >
-                        <RecipientAvatar writer={comment.contributor} />
-                      </Grid>
-                      <Grid item xs={11} ml={1}>
-                        <Typography variant="body2" sx={{ display: "inline-block", lineHeight: 1, fontWeight: "bold" }}>{comment.contributor}  </Typography>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Typography>{comment.comment} </Typography>
-                      </Grid>
-
-
-                    </Grid>
-
-
-                  ))
-
-                }
-              </TabPanel>
-            }
-
-            {props.dialogContent["data"] !== undefined &&
-              <TabPanel value={iconTab} index={3}>
-                <TableContainer component={Paper}>
-                  <Table aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Datensatz</TableCell>
-                        <TableCell align="right">Wert</TableCell>
-                        <TableCell>Einheit</TableCell>
-                        <TableCell>Referenz</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {
-                        Object.entries(props.dialogContent.data).map(([key, data]) => (
-                          <TableRow key={key}>
-                            <TableCell component="th" scope="row">
-                              {key}
-                            </TableCell>
-                            <TableCell align="right">{data.value}</TableCell>
-                            <TableCell >{data.unit}</TableCell>
-                            <TableCell >{data.reference}</TableCell>
-                          </TableRow>
-                        ))
-
-                      }
-
-                    </TableBody>
-
-
-
-
-                  </Table>
-
-                </TableContainer>
-
-
-
-
-              </TabPanel>
-            }
+            </div>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            {/* Right side content */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              {/* Picture */}
+              <img
+                src={props.dialogContent["picture_url"]}
+                alt="Picture"
+                style={{ maxWidth: "200px", maxHeight: "200px" }}
+              />
+            </div>
           </Grid>
         </Grid>
-      </Drawer>
+      </div>
+    </Drawer>
 
     </div>
   );
