@@ -18,10 +18,12 @@ export { records }
 console.log(records )
 
 // define new colors and add them to colors json so they appear in legend as well
-const web_color = '#c2653a'
-const web_color_hov = '#FF8953'
-const data_color = '#3aa1c2'
-const data_color_hov = '#4EC7EE'
+const web_color = '#FFAD33'
+const web_color_hov = '#FEE397'
+const data_color = '#236051'
+const data_color_hov = '#72CD86'
+const cat_color = '#584560'
+const cat_color_hov = '#C2A7CD'
 const colors = [{
   colorcode: web_color,
   class: "Web Tool"
@@ -60,7 +62,15 @@ export default function LegoModel({ ...props }) {
       else if (hover == false) {
         color = data_color
       }
-    }    
+    }   
+    else if (aqi['tool_category'] == 'ext category') {
+      if (hover == true) {
+        color = cat_color_hov
+      }
+      else if (hover == false) {
+        color = cat_color
+      }
+    }     
   }
   
   return color;
