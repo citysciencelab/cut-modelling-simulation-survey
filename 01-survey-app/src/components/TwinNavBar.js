@@ -6,11 +6,12 @@ import { keyframes } from "@mui/material";
 import CameraswitchIcon from '@mui/icons-material/Cameraswitch';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ModelTrainingIcon from '@mui/icons-material/ModelTraining';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import ForumIcon from '@mui/icons-material/Forum';
 import HomeIcon from '@mui/icons-material/Home';
 import CameraFrontIcon from '@mui/icons-material/CameraFront';
 import MapIcon from '@mui/icons-material/Map';
-
+import LegendToggleIcon from '@mui/icons-material/LegendToggle';
 
 export default function TwinNavBar(props) {
 
@@ -25,16 +26,7 @@ export default function TwinNavBar(props) {
     const [currentView, setCurrentView] = useState("normal")
 
     const menuItems = [
-        {
-            name: getCurrentViewName(),
-            icon: getCurrentViewIcon(),
-            onClick: () => { handleViewChange() }
-        },
-        {
-            name: "Modelle & Simulationen",
-            icon: <ModelTrainingIcon fontSize="large" />,
-            onClick: () => { handleSimulationDrawer() }
-        },
+
 
         /*{
             name: "Ausklappen",
@@ -42,11 +34,15 @@ export default function TwinNavBar(props) {
             onClick: () => { setExpand(!expand) }
         },*/
         {
-            name: "Beiträge",
-            icon: <ForumIcon fontSize="large" />,
+            name: "Legende",
+            icon: <LegendToggleIcon fontSize="large" />,
+            onClick: () => { handleSimulationDrawer() }
+        },
+        {
+            name: "Bausteinliste",
+            icon: <FormatListBulletedIcon fontSize="large" />,
             onClick: () => { handleCommentDrawer() }
         },
-        
         
         {
             name: "Startseite",
@@ -96,17 +92,6 @@ export default function TwinNavBar(props) {
 
     }
 
-    function getCurrentViewName() {
-        if (currentView == "normal") {
-            return ("Ansicht")
-        }
-        else if (currentView == "map") {
-            return ("Vogelperspektive")
-        }
-        else if (currentView == "pedestrian") {
-            return ("Fußgänger")
-        }
-    }
 
 
     return (

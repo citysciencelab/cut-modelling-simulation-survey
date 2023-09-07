@@ -3,6 +3,36 @@ import { Drawer, List, ListItemText, ListSubheader, ListItemButton, ListItemIcon
 import CloseIcon from '@mui/icons-material/Close';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import { Simulations } from "../simulations/SimulationData"
+import { colors } from './Legomodel'
+import Box from '@mui/material/Box';
+import { styled } from '@mui/system';
+const StyledBox = styled(Box)(({ colorcode }) => ({
+  display: 'inline-block',
+  marginRight: '8px', // Add spacing between legend items if needed
+  backgroundColor: colorcode,
+  width: '20px',
+  height: '20px',
+}));
+
+function LegendItem({ item }) {
+  return (
+    <div>
+      <StyledBox colorcode={item.colorcode}></StyledBox>
+      <span>{item.class}</span>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div>
+      {colors.map((item, index) => (
+        <LegendItem key={index} item={item} />
+      ))}
+    </div>
+  );
+}
+
 
 
 export default function SimulationDrawer(props) {
@@ -12,22 +42,13 @@ export default function SimulationDrawer(props) {
     props.onHandleSimulationDrawer(false, {});
   };
 
-  function handleSimulationSelection(simulation) {
-    props.onChangeActiveSimulation(simulation)
-    props.onHandleSimulationDrawer(false, {})
-  }
-
   return (
     <div>
       <Drawer anchor={"left"} open={props.open} onClose={handleClose} >
         <Grid container spacing={2} p={4} justifyContent="space-between" alignItems="stretch" sx={{maxWidth:{xs: "100%", md: "750px"}}}>
           <Grid item xs={11}>
             <Typography variant="h3">
-              Modelle & Simulationen
-            </Typography>
-            <Typography variant="subtitle1">
-              Dieser Bereich zeigt mögliche Modelle und Simulationen in einem digitalen Urbanen Zwilling. Natürlich ist die Liste nicht vollständig und die (Simulations-)Modelle nur exemplarisch umgesetzt. 
-              Experimentieren Sie gerne mit den vorhandenen Simulationen und lassen Sie uns durch die Kommentarfeldern wissen, welche Simulationen und Modelle Sie sich wünschen würden.
+              Legende
             </Typography>
           </Grid>
 
@@ -37,48 +58,10 @@ export default function SimulationDrawer(props) {
             </IconButton>
           </Grid>
 
-
-          <Grid item xs={12}>
-            <List
-              sx={{
-                bgcolor: 'background.paper',
-                '& ul': { padding: 0 },
-              }}
-              subheader={<li />}
-            >
-              {
-
-                Object.entries(Simulations).map(([category, simulation_list]) => {
-                  return (
-                    <li key={category}>
-                      <ul>
-                        <ListSubheader>{category}</ListSubheader>
-                        {
-                          simulation_list.map((simulation) => {
-                            return (
-                              <ListItemButton disabled={!simulation.preview} key={simulation.key} selected={props.activeSimulation === simulation.key} sx={{cursor: 'default'}}>
-                                <ListItemIcon>
-                                  {simulation.icon}
-                                </ListItemIcon>
-                                <ListItemText primary={simulation.name} secondary={
-                                  <React.Fragment>
-                                    {simulation.description} <br />
-                                    
-                                  </React.Fragment>
-                                } />
-                                {props.activeSimulation === simulation.key && <Chip label="Simulation stoppen" color="error" onClick={() => { handleSimulationSelection(null) }} sx={{cursor: 'pointer'}}/>}
-                                {props.activeSimulation != simulation.key && <PlayCircleOutlineIcon onClick={() => { handleSimulationSelection(simulation.key) }} sx={{cursor: 'pointer'}}/>}
-                              </ListItemButton>
-                            )
-                          })
-                        }
-                      </ul>
-                    </li>
-                  )
-                })
-              }
-            </List>
+          <Grid item xs={11}>
+            <App />
           </Grid>
+
         </Grid>
       </Drawer>
 

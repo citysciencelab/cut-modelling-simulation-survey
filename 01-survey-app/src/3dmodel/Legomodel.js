@@ -7,42 +7,36 @@ import { useGLTF, Bounds, useBounds } from '@react-three/drei'
 import * as THREE from "three"
 import { BoxGeometry } from 'three';
 import { RoundedBox } from "@react-three/drei"
+import { useFrame } from "@react-three/fiber"
+import PocketBase from 'pocketbase';
+import 'cross-fetch/dist/node-polyfill.js'
 
 
+const client = new PocketBase('https://pocketbase.cut.hcu-hamburg.de');
+const records  = await client.collection('cut_tools').getFullList({sort: '-created',})
+export { records }
+console.log(records )
+
+// define new colors and add them to colors json so they appear in legend as well
+const web_color = '#c2653a'
+const web_color_hov = '#FF8953'
+const data_color = '#3aa1c2'
+const data_color_hov = '#4EC7EE'
+const colors = [{
+  colorcode: web_color,
+  class: "Web Tool"
+},
+{
+  colorcode: data_color,
+  class: "Data"
+}]; //
+export { colors }
 export default function LegoModel({ ...props }) {
+  
 
-
-  const group = useRef()
-
-  const { FachData, ZwillingData, AnwendungData, AnalyseData, GeobasisData } = require("./BuildingData")
-  const { streetData, greenAreaData, institutionData, residentialData, officeData, waterData, bridgeData } = require("./BuildingData")
-  const [hoveredGround, hoverGround] = useState(false)
-  const [hoveredFirst, hoverFirst] = useState(false)
-  const [hoveredSecond, hoverSecond] = useState(false)
-  const [hoveredThird, hoverThird] = useState(false)
-  const [hoveredFourth, hoverFourth] = useState(false)
-
-  const { nodes, materials } = useGLTF('/models/cut_model.gltf')
-  //const { nodes, materials } = useGLTF('/models/legomodel.gltf')
-
-  const color_ground = new THREE.MeshPhysicalMaterial({ color: "#14c000" })
-  const color_ground_hov = new THREE.MeshPhysicalMaterial({ color: "#17df00" })
-  const color_first = new THREE.MeshPhysicalMaterial({ color: "#884887" })
-  const color_first_hov = new THREE.MeshPhysicalMaterial({ color: "#cb6fca" })
-  const color_second = new THREE.MeshPhysicalMaterial({ color: "#ddaa3d" })
-  const color_second_hov = new THREE.MeshPhysicalMaterial({ color: "#fbc759" })
-  const color_third = new THREE.MeshPhysicalMaterial({ color: "#354ca7" })
-  const color_third_hov = new THREE.MeshPhysicalMaterial({ color: "#5872dc" })
-  const color_fourth= new THREE.MeshPhysicalMaterial({ color: "#9c3131" })
-  const color_fourth_hov = new THREE.MeshPhysicalMaterial({ color: "#db5c5c" })
-
-function getColor(aqi, hover ) {
-  //console.log(hover)
+  function getColor(aqi, hover ) {
     let color = ''
-  const web_color = '#c2653a'
-  const web_color_hov = '#FF8953'
-  const data_color = '#3aa1c2'
-  const data_color_hov = '#4EC7EE'
+  
   if (aqi == 150) {
     color =  '#bbbbbb'
   }
@@ -71,150 +65,9 @@ function getColor(aqi, hover ) {
   
   return color;
 }
-  const opacity = 0.5
-  const tools = [{
-    tool_name: 'Urban Data Narrator',
-    tool_category: 'Web Tool',
-    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
-    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
-    development_date: '',
-    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
-    status: '',
-  },
-  {
-    tool_name: 'Urban Data Narrator',
-    tool_category: 'Web Tool',
-    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
-    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
-    development_date: '',
-    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
-    status: '',
-  },
-  {
-    tool_name: 'Urban Data Narrator',
-    tool_category: 'Web Tool',
-    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
-    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
-    development_date: '',
-    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
-    status: '',
-  },
-  {
-    tool_name: 'Urban Data Narrator',
-    tool_category: 'Web Tool',
-    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
-    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
-    development_date: '',
-    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
-    status: '',
-  },
-  {
-    tool_name: 'Urban Data Narrator',
-    tool_category: 'Web Tool',
-    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
-    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
-    development_date: '',
-    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
-    status: '',
-  },
-  {
-    tool_name: 'Urban Data Narrator',
-    tool_category: 'Web Tool',
-    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
-    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
-    development_date: '',
-    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
-    status: '',
-  },
-  {
-    tool_name: 'Urban Data Narrator',
-    tool_category: 'Web Tool',
-    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
-    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
-    development_date: '',
-    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
-    status: '',
-  },
-  {
-    tool_name: 'Urban Data Narrator',
-    tool_category: 'Web Tool',
-    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
-    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
-    development_date: '',
-    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
-    status: '',
-  },
-  {
-    tool_name: 'Urban Data Narrator',
-    tool_category: 'Web Tool',
-    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
-    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
-    development_date: '',
-    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
-    status: '',
-  },
-  {
-    tool_name: 'Urban Data Narrator',
-    tool_category: 'Web Tool',
-    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
-    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
-    development_date: '',
-    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
-    status: '',
-  },
-  {
-    tool_name: 'Urban Data Narrator',
-    tool_category: 'Web Tool',
-    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
-    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
-    development_date: '',
-    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
-    status: '',
-  },
-  {
-    tool_name: 'Urban Data Narrator',
-    tool_category: 'Web Tool',
-    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
-    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
-    development_date: '',
-    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
-    status: '',
-  },
-  {
-    tool_name: 'Urban Data Narrator',
-    tool_category: 'Web Tool',
-    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
-    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
-    development_date: '',
-    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
-    status: '',
-  },
-  {
-    tool_name: 'Urban Data Narrator',
-    tool_category: 'Web Tool',
-    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
-    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
-    development_date: '',
-    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
-    status: '',
-  },
-  {
-    tool_name: 'Urban Data Narrator',
-    tool_category: 'Web Tool',
-    link: 'https://re2-results.cut.hcu-hamburg.de/mobility-results/',
-    description: 'Der Urban Data Narrator ist eine innovative Plattform, die faszinierende Geschichten über städtische Lebensräume mithilfe von Datenvisualisierungen erzählt. Er verbindet Daten und Erzählkunst, um komplexe städtische Zusammenhänge anschaulich zu präsentieren. Eine beeindruckende Möglichkeit, das Leben in der Stadt besser zu verstehen.',
-    development_date: '',
-    picture_url: 'https://user-images.githubusercontent.com/36763878/219619895-12db4431-32d9-458b-a73f-548052404258.png',
-    status: '',
-  },
-  {tool_name: 'Stadträumliche Barrierien',
-  tool_category: 'Data',
-  link: '',
-  description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
-  development_date: '',
-  picture_url: 'https://www.owl-luftaufnahmen.de/wp-content/uploads/2015/06/Unterseiten-Bilder-Beispielbild.jpg',
-  status: '',
-  }];
+
+  const tools = records
+
   function add_cube_to_capacity(level_capacity, row_capacity, level, row, sidelength) {
     level_capacity = level_capacity + 1;
     row_capacity = row_capacity + 1;
@@ -292,7 +145,6 @@ function getColor(aqi, hover ) {
         // Create a new sub-array for the current row if it doesn't exist
         build_matrix[level][row] = [];
       }
-      //console.log(sidelength, i)
       if (blacklist.includes(i) == true) {
         build_matrix[level][row].push(150);
         [level_capacity, row_capacity, level, row] = add_cube_to_capacity(level_capacity, row_capacity, level, row, sidelength)
@@ -325,33 +177,153 @@ function getColor(aqi, hover ) {
   const sidelength = data[1]
 
 
+  function get_position(j,i,k, sidelength, z, clicked, obj_no) {
+    const shift = 24  
+    let position = []
+    
+      if (k==sidelength-1) {
+        if (j==0) {
+          position = [-65 - shift + 25.5 * j, -5 + 25.5 * i, 0 + shift + 25.5 * k]}
+        else if (j==sidelength-1) {
+          position = [-65 + shift + 25.5 * j, -5  + 25.5 * i, 0 + shift + 25.5 * k]}
+        else {
+        position = [-65 + 25.5 * j, -5 + 25.5 * i, 0 + shift + 25.5 * k]}
+      }
+      else if (k == 0) {
+        if (j==0) {
+          position = [-65 - shift + 25.5 * j, -5 + 25.5 * i, 0 +-shift + 25.5 * k]}
+        else if (j==sidelength-1) {
+          position = [-65 + shift + 25.5 * j, -5  + 25.5 * i, 0 - shift + 25.5 * k]}
+        else {
+        position = [-65 + 25.5 * j, -5 + 25.5 * i, 0 - shift + 25.5 * k]}
+      }
+      else if (k !== 0 && k !== sidelength-1) {
+        if (j==0) {
+          position = [-65 - shift + 25.5 * j, -5  + 25.5 * i, 0 + 25.5 * k]}
+  
+        else if (j == sidelength-1) {
+          position = [-65 + shift + 25.5 * j, -5  + 25.5 * i, 0 + 25.5 * k]}
+        else if (j !== 0) {
+        position = [-65 + 25.5 * j, -5 + shift + 25.5 * i, 0 + 25.5 * k]}
+        }
+      else {
+        position = [-65 + 25.5 * j, -5 + 25.5 * i, 0 + 25.5 * k]
+      }
+    
+    setupBoxes[obj_no] = true
+    setTargetPosition(obj_no, position);
+    return position
+  }
+  function setTargetPosition(index, targetPosition) {
+    const newTargetPositions = [...targetPositions];
+    newTargetPositions[index] = targetPosition;
+    setTargetPositions(newTargetPositions);
+  }
+  function ResetTargetPosition() {
+    const newTargetPositions = start_positions;
+    setTargetPositions(newTargetPositions);
+  }
+
   //Dialogue management
-  function handleClickOpen(data, event) {
+  function handleClickOpen(data, event, j,i,k,sidelength,z, obj_no) {
+    //ResetTargetPosition()
+    setCurrentPositions(start_positions)
+    get_position(j,i,k,sidelength,z,  clickedBoxes[obj_no] ? true : false, obj_no)
     event.stopPropagation()
     props.onHandleDialog(true, data);
+    
 
   };
 
-
-  const [hoveredBoxes, setHoveredBoxes] = useState(Array(17).fill(false));
-
-  const [hovered, hover] = useState(false);
+  const start_positions = [
+    [-65, 0, 0],
+    [-65, 0, 25],
+    [-65, 0, 51],
+    [-40, 0, 0],
+    [-40, 0, 25],
+    [-40, 0, 51],
+    [-14, 0, 0],
+    [-14, 0, 25],
+    [-14, 0, 51],
+    [-65, 25, 0],
+    [-65, 25, 25],
+    [-65, 25, 51],
+    [-40, 25, 0],
+    [-40, 25, 25],
+    [-40, 25, 51],
+    [-14, 25, 0],
+    [-14, 25, 25]
+  ];
+  const [hoveredBoxes, setHoveredBoxes] = useState(Array(64).fill(false));
+  const [clickedBoxes, setClickedBoxes] = useState(Array(64).fill(false));
+  const setupBoxes = Array(64).fill(false)
+  const [currentPositions, setCurrentPositions] = useState(Array(64).fill([0,0,0])); // Initialize with an empty array
+  const [targetPositions, setTargetPositions] = useState(start_positions);
+  
+  function calculateDistance(point1, point2) {
+    const [x1, y1, z1] = point1;
+    const [x2, y2, z2] = point2;
+  
+    return Math.sqrt((x2 - x1)**2 + (y2 - y1)**2 + (z2 - z1)**2);
+  }
+  useFrame((state, delta) => {
+    const newCurrentPositions = [...currentPositions];
+  
+    for (let i = 0; i < matrix.length; i++) {
+      for (let j = 0; j < matrix[i].length; j++) {
+        for (let k = 0; k < matrix[i][j].length; k++) {
+          const boxIndex = k + j * sidelength + i * sidelength * sidelength;
+          const currentPosition = newCurrentPositions[boxIndex];
+          const targetPosition = targetPositions[boxIndex];
+          if (targetPosition) {
+            const distance = calculateDistance(currentPosition, targetPosition);
+            const speed = 0.1;
+  
+            if (distance > 50) {
+              const newPosition = [];
+              for (let l = 0; l < 3; l++) {
+                newPosition[l] = currentPosition[l] + (targetPosition[l] - currentPosition[l]) * speed;
+              }
+            
+              newCurrentPositions[boxIndex] = newPosition;
+            } 
+            else if (distance > 1) {
+              const newPosition = [];
+              for (let l = 0; l < 3; l++) {
+                newPosition[l] = currentPosition[l] + (targetPosition[l] - currentPosition[l]) * speed;
+              }
+            
+              newCurrentPositions[boxIndex] = newPosition;
+            } 
+            else {
+              setCurrentPositions(boxIndex, targetPosition);
+              setTargetPosition(boxIndex, null);
+            }
+          }
+        }
+      }
+    }
+  
+    setCurrentPositions(newCurrentPositions);
+  });
+  
   return (
     matrix.map((x, i) => {
       return (
           x.map((y, j) => {
               return (
                   y.map((z, k) => {
-                      let obj_no = k+j*sidelength+i*sidelength*sidelength
+                      const obj_no = k+j*sidelength+i*sidelength*sidelength
+                      //if (setupBoxes[0] == false) {get_position(j,i,k,sidelength,z,  clickedBoxes[obj_no] ? true : false, obj_no)}
+                      //newCurrentPositions[obj_no] = position;
+                      //setCurrentPosition(obj_no, position)
                       return (
-
                           <mesh 
                           onPointerOver={(event) => {
                             event.stopPropagation()
                             const newHoveredBoxes = [];
                             newHoveredBoxes[obj_no] = true;
                             setHoveredBoxes(newHoveredBoxes);
-                            console.log(hoveredBoxes)
                           }}
                           onPointerOut={(event) => {
                             const newHoveredBoxes = [...hoveredBoxes];
@@ -360,22 +332,28 @@ function getColor(aqi, hover ) {
                             //event.stopPropagation()
                           }}  
                           onClick={(event) => {
-                            handleClickOpen(z, event)}}
+                            const newClickedBoxes = [];
+                            newClickedBoxes[obj_no] = true;
+                            setClickedBoxes(newClickedBoxes);
+                            handleClickOpen(z, event, j,i,k,sidelength,z, obj_no)
+                          }}
                           >
                           
-                            <RoundedBox key={i + "," + j + "," + k} radius={0.05} smoothness={4} scale={25} position={[-65 + 25.5 * j, -70 + 25.5 * i, -65 + 25.5 * k]}>
+                            <RoundedBox 
+                            key={i + "," + j + "," + k} 
+                            radius={0.05} 
+                            smoothness={4} 
+                            scale={25} 
+                            position={currentPositions[obj_no]}>
                                 <meshPhongMaterial color={getColor(z, hoveredBoxes[obj_no] ? true : false)} transparent opacity={100}  />
                             </RoundedBox>
                           </mesh>
                       )
                   }))
           }))
-// TODO  hover anzeige welches ist ausgewählt
-
+// TODO Farben anpassen, Legende
   })
-
   )
 }
 
-useGLTF.preload('/models/cut_model.gltf')
 
